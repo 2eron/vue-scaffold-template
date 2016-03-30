@@ -24,6 +24,10 @@
         "private": {
             "type": "boolean",
             "default": true
+        },
+        "port": {
+            "type": "number",
+            "default":8888
         }
     }
 }

@@ -1,19 +1,21 @@
 {
-  "name": "vue-scaffold",
-  "version": "1.0.0",
-  "description": "deji vue project scaffold",
-  "main": "index.js",
+  "name": "{{name}}",
+  "version": "{{version}}",
+  "description": "{{description}}",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --inline --hot --port 8989 --host 0.0.0.0 --config webpack.dev.config.js",
+    "dev": "webpack-dev-server --inline --hot --port {{8888}} --host 0.0.0.0 --config webpack.dev.config.js",
     "build": "webpack --progress --hide-modules --config webpack.prod.config.js"
   },
+  {{#private}}
+  "private":true,
+  {{/private}}
   "keywords": [
-    "deji",
+    "webpack",
     "vue",
-    "scaffold"
+    "template"
   ],
-  "author": "liwei",
+  "author": "{{author}}",
   "license": "UNLICENSED",
   "devDependencies": {
       "autoprefixer": "^6.3.5",
