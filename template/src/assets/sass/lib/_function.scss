@@ -1,0 +1,32 @@
+// sass functions
+// author liwei
+// ======================
+
+// dependencies
+@import 'variable';
+
+/**
+ * px2rem convert px to rem
+ * @param  {Number} $value Number with 'px' or number
+ * @return {Number}        Number with 'rem'
+ */
+@function px2rem($value){
+	@if(unitless($value)){
+		$value: $value * 1px;
+	}
+	@return ($value / $baseFontSize ) * 1rem;
+}
+
+// convert px value in iPhone 6+ to rem value in iPhone 6(basic)
+/**
+ * px2rem convert px value in iPhone 6+ to rem value in iPhone 6(basic)
+ * @param  {Number} $value Number with 'px' or number
+ * @return {Number}        Number with 'rem'
+ */
+@function cvt($value){
+	@if(unitless($value)){
+		$value: $value * 1px;
+	}
+	$value: $value / (3 * $convertRatio);
+	@return px2rem($value);
+}

@@ -1,0 +1,9 @@
+{
+    "index.html": {
+        "template": "src/pages/index.html",
+        "chunks": [
+            "vendor",
+            "app"
+        ]
+    }
+}
