@@ -1,4 +1,4 @@
-# vue-scaffold-template
+# Introduction
 template for [vue-scaffold](https://github.com/2eron/vue-scaffold)
 # Structure
 ```
