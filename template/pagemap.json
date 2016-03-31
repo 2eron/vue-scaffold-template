@@ -1,8 +1,8 @@
 {
-    "index.html": {
-        "template": "src/pages/index.html",
+    "app.html": {
+        "template": "src/pages/app.html",
         "chunks": [
-            "vendor",
+            "lib",
             "app"
         ]
     }
