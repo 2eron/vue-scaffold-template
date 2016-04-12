@@ -19,6 +19,7 @@
   "license": "UNLICENSED",
   "devDependencies": {
       "autoprefixer": "^6.3.5",
+      "postcss-loader": "^0.8.2",
       "babel-core": "^6.5.2",
       "babel-loader": "^6.2.2",
       "babel-plugin-transform-runtime": "^6.5.2",

@@ -26,11 +26,11 @@ module.exports = {
     	loaders: [
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract('vue-style', 'css')
+				loader: ExtractTextPlugin.extract('vue-style', 'css!postcss')
 			},
 			{
 				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract('vue-style', 'css!sass')
+				loader: ExtractTextPlugin.extract('vue-style', 'css!postcss!sass')
 			},
       		{
         		test: /\.vue$/,
@@ -63,14 +63,16 @@ module.exports = {
     	]
   	},
 	vue: {
-		autoprefixer: {
-			browsers: ['last 2 versions']
-		},
 		loaders: {
-			css: ExtractTextPlugin.extract('css'),
-			sass: ExtractTextPlugin.extract('css!sass')
+			css: ExtractTextPlugin.extract('css!postcss'),
+			sass: ExtractTextPlugin.extract('css!postcss!sass')
 		}
 	},
+    postcss: [
+        autoprefixer({
+            browsers: 'last 2 versions'
+        })
+    ],
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'lib',
