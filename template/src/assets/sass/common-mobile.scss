@@ -1,25 +1,6 @@
-@import 'lib/variable';
-@import 'lib/function';
-@import 'base/reset';
-@import 'base/iconfont';
+@import 'lib/lib';
+@import 'base/base';
 @import 'components/loader';
-
-html,body{
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	user-select: none;
-	font-size: $baseFontSize;
-	backface-visibility: hidden;
-}
-
-.unscrollable{
-	overflow: hidden;
-	height: 100%;
-	body{
-		overflow: hidden;
-		height: 100%;
-	}
-}
 
 @each $value in $screenWidthList{
 	@media only screen and (min-width: $value){
@@ -30,6 +11,13 @@ html,body{
 }
 *{
 	-webkit-user-select: none;
+}
+html,body{
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+	font-size: $baseFontSize;
+	backface-visibility: hidden;
 }
 body{
 	font-size: cvt(36px);
