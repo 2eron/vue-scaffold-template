@@ -1,9 +1,4 @@
 import Vue from 'vue'
-import App from './App.vue'
 
-new Vue({
-    el: 'body',
-    components: {
-        App
-    }
-})
+let App = Vue.extend(require('./App'))
+new App.$mount('#app')

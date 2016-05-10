@@ -21,6 +21,7 @@ Object.keys(pageMap).forEach(function(key){
 	var page = pageMap[key];
 	config.plugins.push(new HtmlWebpackPlugin({
 		filename: key,
+		title: page.title,
 		template: page.template,
 		chunks: page.chunks
 	}));

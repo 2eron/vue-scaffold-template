@@ -2,19 +2,32 @@ var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var _ = require('lodash')
+var pagemap = require('./pagemap')
+var entryPath = './src/entries'
+var entries = []
+var entryNames = []
+var pageEntry = {}
+var configEntry = {}
+_.keys(pagemap).forEach(function(key){
+	entries.push(pagemap[key].entry)
+})
+_.uniq(entries).forEach(function(item){
+	var name = item.match(/(.*)\.js/)[1]
+	entryNames.push(name)
+	pageEntry[name] = path.join(entryPath, item)
+})
+_.assign(configEntry, pageEntry)
 
 module.exports = {
-  	entry: {
-		lib: ['vue'],
-    	app: './src/app.js'
-  	},
+  	entry: configEntry,
   	output: {
     	path: path.resolve(__dirname, 'dist/assets'),
     	publicPath: '/assets/',
     	filename: '[name].js'
   	},
   	resolve: {
-    	extensions: ['', '.js', '.vue'],
+    	extensions: ['', '.js', '.vue', '.css', '.scss'],
     	alias: {
       		'src': path.resolve(__dirname, './src')
     	}
@@ -74,9 +87,9 @@ module.exports = {
         })
     ],
 	plugins: [
-		new webpack.optimize.CommonsChunkPlugin({
+        new webpack.optimize.CommonsChunkPlugin({
 			name: 'lib',
-			minChunks: Infinity
+			chunks: entryNames
 		})
 	]
 }
