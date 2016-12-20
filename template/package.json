@@ -1,48 +1,55 @@
 {
-  "name": "{{name}}",
-  "version": "{{version}}",
-  "description": "{{description}}",
+  "name": "vue2-base",
+  "version": "1.0.0",
+  "description": "vue2 base scaffold",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --inline --hot --port {{port}} --host 0.0.0.0 --config webpack.dev.config.js",
-    "build": "webpack --progress --hide-modules --config webpack.prod.config.js"
+    "dev": "node build/dev-server"
   },
-  {{#private}}
-  "private":true,
-  {{/private}}
   "keywords": [
+    "vue2.0",
     "webpack",
-    "vue",
-    "template"
+    "scaffold"
   ],
-  "author": "{{author}}",
-  "license": "UNLICENSED",
+  "author": "liwei",
+  "license": "MIT",
   "devDependencies": {
-      "autoprefixer": "^6.3.5",
-      "postcss-loader": "^0.8.2",
-      "babel-core": "^6.5.2",
-      "babel-loader": "^6.2.2",
-      "babel-plugin-transform-runtime": "^6.5.2",
-      "babel-preset-es2015": "^6.5.0",
-      "babel-runtime": "^5.8.35",
-      "connect-history-api-fallback": "^1.2.0",
-      "css-loader": "^0.23.1",
-      "extract-text-webpack-plugin": "^1.0.1",
-      "file-loader": "^0.8.5",
-      "html-webpack-plugin": "^2.8.2",
-      "json-loader": "^0.5.4",
-      "node-sass": "^3.4.2",
-      "sass-loader": "^3.1.2",
-      "url-loader": "^0.5.7",
-      "vue-hot-reload-api": "^1.3.2",
-      "vue-html-loader": "^1.1.0",
-      "vue-loader": "^8.1.3",
-      "vue-style-loader": "^1.0.0",
-      "webpack": "^1.12.13",
-      "webpack-dev-server": "^1.14.1",
-      "lodash": "^4.11.1"
+    "autoprefixer": "^6.5.1",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-runtime": "^6.11.6",
+    "chai": "^3.5.0",
+    "css-loader": "^0.25.0",
+    "express": "^4.14.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.22.0",
+    "json-loader": "^0.5.4",
+    "karma": "^1.3.0",
+    "karma-mocha": "^1.2.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-sinon-chai": "^1.2.4",
+    "karma-webpack": "^1.8.0",
+    "lodash": "^4.16.4",
+    "mocha": "^3.1.2",
+    "node-sass": "^3.10.1",
+    "phantomjs-prebuilt": "^2.1.13",
+    "postcss-loader": "^0.13.0",
+    "sass-loader": "^4.0.2",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0",
+    "url-loader": "^0.5.7",
+    "vue-loader": "^10.0.2",
+    "vue-style-loader": "^1.0.0",
+    "vue-template-compiler": "^2.1.6",
+    "webpack": "^1.13.2",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-hot-middleware": "^2.13.0"
   },
   "dependencies": {
-    "vue": "^1.0.20"
+    "vue": "^2.1.6"
   }
 }
