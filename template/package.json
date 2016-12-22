@@ -1,17 +1,13 @@
 {
-  "name": "vue2-base",
-  "version": "1.0.0",
-  "description": "vue2 base scaffold",
+  "name": "{{name}}",
+  "version": "{{version}}",
+  "description": "description",
   "main": "index.js",
   "scripts": {
     "dev": "node build/dev-server"
   },
-  "keywords": [
-    "vue2.0",
-    "webpack",
-    "scaffold"
-  ],
-  "author": "liwei",
+  "keywords": [],
+  "author": "{{author}}",
   "license": "MIT",
   "devDependencies": {
       "autoprefixer": "^6.5.1",
@@ -26,7 +22,6 @@
       "file-loader": "^0.9.0",
       "html-webpack-plugin": "^2.22.0",
       "json-loader": "^0.5.4",
-      "lodash": "^4.16.4",
       "node-sass": "^3.10.1",
       "postcss-loader": "^0.13.0",
       "sass-loader": "^4.0.2",
