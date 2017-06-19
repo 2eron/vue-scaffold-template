@@ -1,38 +1,46 @@
 // denpendencies
 var path = require('path')
-var webpack = require('webpack');
-var baseConfig = require('./webpack.base.config');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-// hot middleware client script
-var hotMiddlewareScript = ['webpack-hot-middleware/client?reload=true&noInfo=true']
+var webpack = require('webpack')
+var config = require('./webpack.base.config')
+var utils = require('./utils')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // do not specify --devtool on the command line
-baseConfig.devtool = '#source-map';
+config.devtool = '#source-map'
 
-baseConfig.output.publicPath = '/';
+config.output.publicPath = '/'
 
-// add hot middleware client script to entry chunks
-Object.keys(baseConfig.entry).forEach((function(key){
-	baseConfig.entry[key] = hotMiddlewareScript.concat(baseConfig.entry[key])
-}));
+var hotMiddlewareScript = ['webpack-hot-middleware/client?reload=true&noInfo=true']
 
-baseConfig.plugins = (baseConfig.plugins||[]).concat([
-	new ExtractTextPlugin('css/[name].css'),
-	// webpack-hot-middleware
-	new webpack.optimize.OccurenceOrderPlugin(),
+// add hot-reload related code to entry chunks
+Object.keys(config.entry).forEach(function(name){
+	config.entry[name] = hotMiddlewareScript.concat(config.entry[name])
+})
+
+// enable HMR when modify the style, must set disable option true
+// https://stackoverflow.com/questions/43286977/how-to-hot-reload-sass-using-webpack-2
+config.plugins = (config.plugins||[]).concat([
+	new ExtractTextPlugin({
+		filename: 'css/[name].css',
+		disable: true
+	}),
 	new webpack.HotModuleReplacementPlugin(),
-	new webpack.NoErrorsPlugin()
-]);
+	new webpack.optimize.OccurrenceOrderPlugin(),
+	new webpack.NoEmitOnErrorsPlugin()
+])
 
+var template = "src/templates/default.html"
+var pages = utils.getPages()
 // add HtmlWebpackPlugin to plugins
-baseConfig.plugins.push(new HtmlWebpackPlugin({
-    filename: 'index.html',
-    template: './src/index.html',
-    chunks: ['common', 'lib', 'app'],
-    inject: true,
-    chunksSortMode: 'dependency'
-}));
+pages.forEach(function(page){
+	config.plugins.push(new HtmlWebpackPlugin({
+		title: page.title,
+		filename: page.url,
+		template: !!page.template?page.template:template,
+		chunks: page.chunks,
+		chunksSortMode: 'dependency'
+	}))
+})
 
-module.exports = baseConfig;
+module.exports = config

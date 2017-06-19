@@ -1,5 +1,5 @@
 # 说明
-基于webpack+vue 2.0的项目脚手架
+基于Webpack 2.0 + Vue 2.0的多页面项目脚手架
 # 安装
 ```
 npm install

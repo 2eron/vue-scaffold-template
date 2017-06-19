@@ -2,11 +2,12 @@ var path = require('path')
 var webpack = require('webpack')
 var autoprefixer = require('autoprefixer')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var utils = require('./utils')
+var vendorEntries = require('./vendor-entries')
 
+Object.assign(vendorEntries, utils.getEntries())
 module.exports = {
-	entry: {
-        app: './src/app.js'
-    },
+	entry: entries,
 	output: {
     	path: path.resolve(__dirname, '../dist/assets'),
     	publicPath: '/assets/',
@@ -14,84 +15,78 @@ module.exports = {
 		chunkFilename: '[name].chunk.js'
   	},
   	resolve: {
-    	extensions: ['', '.js', '.vue','.scss', '.css'],
+    	extensions: ['.js', '.vue','.scss', '.css'],
     	alias: {
       		'src': path.resolve(__dirname, '../src'),
 			'components': path.resolve(__dirname, '../src/components'),
+			'views': path.resolve(__dirname, '../src/views'),
             'assets': path.resolve(__dirname, '../src/assets')
     	}
   	},
-  	resolveLoader: {
-    	root: path.join(__dirname, 'node_modules')
-  	},
   	module: {
-    	loaders: [
+    	rules: [
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract('vue-style', 'css!postcss')
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: ['css-loader', 'postcss-loader']
+				})
 			},
 			{
 				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract('vue-style', 'css!postcss!sass')
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: ['css-loader', 'postcss-loader', 'sass-loader']
+				})
 			},
       		{
         		test: /\.vue$/,
-        		loader: 'vue'
+				loader: 'vue-loader',
+				options: {
+					loaders: {
+						css: ExtractTextPlugin.extract({
+							use: ['css-loader', 'postcss-loader'],
+							fallback: 'style-loader'
+						}),
+						sass: ExtractTextPlugin.extract({
+							use: ['css-loader', 'postcss-loader', 'sass-loader'],
+							fallback: 'style-loader'
+						})
+					}
+				}
       		},
       		{
         		test: /\.js$/,
-        		loader: 'babel',
+        		loader: 'babel-loader',
         		exclude: /node_modules/
       		},
       		{
-        		test: /\.json$/,
-        		loader: 'json'
-      		},
-      		{
         		test: /\.(png|jpg|gif)$/,
-        		loader: 'file',
-        		query: {
-          			name: 'img/[name].[hash:7].[ext]'
-        		}
+				loader: 'file-loader',
+				options: {
+					name: 'img/[name].[hash:7].[ext]'
+				}
       		},
 			{
-				test: /\.(woff|ttf|eot|svg)/,
-				loader: 'file',
-				query: {
+				test: /fonts\/.*\.(woff|ttf|eot|svg)/,
+				loader: 'file-loader',
+				options: {
 					name: 'fonts/[name].[hash:7].[ext]'
 				}
 			}
     	]
   	},
-	vue: {
-		loaders: {
-			css: ExtractTextPlugin.extract('css!postcss'),
-			sass: ExtractTextPlugin.extract('css!postcss!sass')
-		}
-	},
-	postcss: [
-		autoprefixer({
-			browsers: ['last 2 versions']
-		})
-	],
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({
-			name: 'lib',
-            minChunks: function (module, count) {
-                // any required modules inside node_modules are extracted to vendor
-                return (
-                    module.resource &&
-                        /\.js$/.test(module.resource) &&
-                        module.resource.indexOf(
-                            path.join(__dirname, '../node_modules')
-                        ) === 0
-                    )
-            }
-		}),
-		// manifest
-		new webpack.optimize.CommonsChunkPlugin({
 			name: 'common',
-			chunks: ['lib']
+			chunks: utils.getEntryNames()
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'framework',
+			chunks: ['common', 'vue']
 		})
-	]
+	],
+	devServer: {
+		disableHostCheck: true
+	}
 }
