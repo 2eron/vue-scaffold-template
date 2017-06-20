@@ -4,7 +4,7 @@ var autoprefixer = require('autoprefixer')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var utils = require('./utils')
 var vendorEntries = require('./vendor-entries')
-
+var entries = utils.getEntries()
 Object.assign(vendorEntries, utils.getEntries())
 module.exports = {
 	entry: entries,
